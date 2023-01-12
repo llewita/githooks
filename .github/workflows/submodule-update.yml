@@ -19,7 +19,7 @@ jobs:
       PARENT_REPOSITORY: 'FrangipaneTeam/provider-flexibleengine'
       CHECKOUT_BRANCH: 'main'
       PR_AGAINST_BRANCH: 'main'
-      OWNER: 'org'
+      OWNER: 'FrangipaneTeam'
 
     steps:
       ##########################
