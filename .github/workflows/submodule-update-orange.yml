@@ -7,19 +7,24 @@ name: Submodule Updates
 on:
   push:
     branches: [main]
-
+    paths:
+      - '!.github/**'
+      
 ###############
 # Set the Job #
 ###############
 jobs:
   build:
     name: Submodule update
+    strategy:
+      matrix:
+        targets: [orange-cloudavenue/terraform-provider-cloudavenue, orange-cloudavenue/cloudavenue-sdk-go]
     runs-on: ubuntu-latest
     env:
-      PARENT_REPOSITORY: 'FrangipaneTeam/provider-flexibleengine'
+      PARENT_REPOSITORY: ${{ matrix.targets }}
       CHECKOUT_BRANCH: 'main'
       PR_AGAINST_BRANCH: 'main'
-      OWNER: 'FrangipaneTeam'
+      OWNER: 'orange-cloudavenue'
 
     steps:
       ##########################
@@ -35,7 +40,7 @@ jobs:
         id: run_action
         uses: releasehub-com/github-action-create-pr-parent-submodule@v1
         with:
-          github_token: ${{ secrets.PROVIDER_FE_RW_TOKEN }}
+          github_token: ${{ secrets.RWORANGECLOUDAVENUE }}
           parent_repository: ${{ env.PARENT_REPOSITORY }}
           checkout_branch: ${{ env.CHECKOUT_BRANCH}}
           pr_against_branch: ${{ env.PR_AGAINST_BRANCH }}
